@@ -36,3 +36,13 @@ Set<Person> graphByName(@Param("name") String name);
 Set<Person> graph();
 ```
 
+只要我们通过使用```#graphByName(name)```方法就可以快速的找到关于这个name的所处的关系网
+
+### 项目使用
+
+1. git clone https://github.com/chenmoand/spring-neo4j
+
+   将代码克隆下来
+
+2. 修改application.yml的```noe4j```信息
+
