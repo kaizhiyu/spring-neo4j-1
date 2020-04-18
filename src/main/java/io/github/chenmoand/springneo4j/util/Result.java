@@ -18,6 +18,11 @@ public final class Result<DATA> implements Serializable {
     private String info;
     private DATA data;
 
+    /**
+     * 成功获得数据
+     *
+     * @return 返回一个没有数据的结果
+     */
     public static Result<Void> success() {
         return new Result<>(200, "执行成功", null);
     }
@@ -42,7 +47,7 @@ public final class Result<DATA> implements Serializable {
     }
 
     public static <D> Result<D> dataNotNull(Optional<D> data) {
-        return Result.dataNotNull(data.get());
+        return data.map(Result::success).orElseGet(() -> (Result<D>) Result.failure());
     }
 
 
