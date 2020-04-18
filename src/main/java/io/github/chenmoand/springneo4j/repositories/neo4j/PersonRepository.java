@@ -10,9 +10,9 @@ import java.util.Set;
 public interface PersonRepository extends Neo4jRepository<Person, Long> {
 
     @Query("MATCH (root:Person)<-[r:Relative]-(p:Person) " +
-            "WHERE root.id='{id}' RETURN root, r, p"
+            "WHERE root.name='{name}' RETURN root, r, p"
     )
-    Set<Person> graphById(@Param("id") Long id);
+    Set<Person> graphByName(@Param("name") String name);
 
     @Query("MATCH (root:Person)<-[r:Relative]-(p:Person) RETURN root, r, p")
     Set<Person> graph();
