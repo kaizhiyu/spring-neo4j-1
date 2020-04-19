@@ -12,7 +12,7 @@ public class SpringNeo4jApplication {
     public static void main(String[] args) {
         SpringApplication.run(SpringNeo4jApplication.class, args);
         log.info("项目成功启动,祝您使用愉快! [api调试地址-> http://127.0.0.1:8080/swagger-ui.html]");
-        log.info("@author: chenmoand");
+        log.info("@author: chenmoand @version: 1.0");
     }
 
 }

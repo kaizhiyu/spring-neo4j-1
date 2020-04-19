@@ -6,6 +6,7 @@ import io.github.chenmoand.springneo4j.bean.Relative;
 import io.github.chenmoand.springneo4j.bean.Sex;
 import io.github.chenmoand.springneo4j.repositories.neo4j.PersonRepository;
 import io.github.chenmoand.springneo4j.repositories.neo4j.RelativeRepository;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,12 +76,14 @@ class SpringNeo4jApplicationTests {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @SneakyThrows
     @Test
     void testMethod() {
 //        final Collection<Person> people = personRepository.graphById(1L);
         final Collection graph = personRepository.graph();
-        final String toString = graph.toString();
-        log.info(toString);
+//        final String toString = graph.toString();
+        final String s = objectMapper.writeValueAsString(graph);
+        log.info(s);
     }
 
     @Test
@@ -88,9 +91,15 @@ class SpringNeo4jApplicationTests {
         final Optional<Person> byId = personRepository.findById(2L);
 
         byId.ifPresent(person -> {
-            final Set relatives = person.getRelatives();
-            log.info(relatives.toString());
+//            final Set relatives = person.getRelatives();
+//            log.info(relatives.toString());
         });
 
+    }
+
+    @Test
+    void testMethodThree() {
+        final Set people = personRepository.graphByName("小明");
+        log.info(people.toString());
     }
 }

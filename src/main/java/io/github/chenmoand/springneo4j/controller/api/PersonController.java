@@ -11,7 +11,6 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -48,7 +47,7 @@ public class PersonController {
     }
 
     @GetMapping("/graph")
-    @ApiParam("根据名称查找树状图")
+    @ApiOperation("根据名称查找树状图")
     public Result<Collection<Person>> graphByName(@ApiParam("成员id") String name) {
         final Collection<Person> people = personRepository.graphByName(name);
         return Result.success(people);
@@ -57,7 +56,7 @@ public class PersonController {
     @Transient
     @PostMapping
     @ApiOperation("添加或者更新一个成员")
-    public Result<Person> updatePerson(@ApiParam("成员信息") @Valid Person person) {
+    public Result<Person> updatePerson(@ApiParam("成员信息") @RequestBody  Person person) {
         final Person save = personRepository.save(person);
         return Result.success(save);
     }

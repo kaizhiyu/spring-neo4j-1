@@ -1,5 +1,6 @@
 package io.github.chenmoand.springneo4j.config;
 
+import com.spring4all.swagger.EnableSwagger2Doc;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;

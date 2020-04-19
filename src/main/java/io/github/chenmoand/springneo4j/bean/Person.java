@@ -1,7 +1,8 @@
 package io.github.chenmoand.springneo4j.bean;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
@@ -21,24 +22,29 @@ import java.util.Set;
 @Getter
 @Setter
 @Builder
+@ToString
+@ApiModel(value = "Person", description = "基本单位人")
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @NodeEntity(label = "Person")
 public class Person implements Serializable {
 
     @Id
     @GeneratedValue
+    @ApiModelProperty("成员ID")
     private Long id;
+    @ApiModelProperty("成员姓名")
     private String name;
+    @ApiModelProperty("成员性别")
     private Sex sex;
 
-    @Size(min = 0, max = 120)
+    @ApiModelProperty("成员年龄")
     private int age;
 
-//    @JsonIgnoreProperties(value = {"startPerson", "endPerson"})
+    @ApiModelProperty("成员亲属关系列表")
     @Relationship(type = "Relative")
-    private Set<Relative> relatives = Collections.emptySet();
+    @JsonIgnoreProperties(value = {"startPerson", "endPerson"})
+    private Set<Relative> relatives;
 
 
 }

@@ -8,10 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Transient;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Api("成员关系管理")
 @RestController
@@ -24,7 +21,7 @@ public class RelativeController {
     @Transient
     @PostMapping
     @ApiOperation("添加或者更新一个成员关系")
-    public Result<Relative> updateRelative(@ApiParam("成员关系") Relative relative) {
+    public Result<Relative> updateRelative(@RequestBody Relative relative) {
         final Relative save = relativeRepository.save(relative);
         return Result.success(save);
     }

@@ -1,0 +1,23 @@
+POST http://127.0.0.1:8080/v1/relative
+Content-Type: application/json
+
+{
+  "relationship": "爷爷",
+  "startPerson": {
+    "id": 7,
+    "name": "小学神",
+    "age": 45,
+    "sex": "FEMALE"
+
+  },
+  "endPerson": {
+    "id": 2,
+    "name": "小明",
+    "age": 18,
+    "sex": "MALE"
+  }
+}
+
+###
+
+
