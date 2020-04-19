@@ -29,7 +29,7 @@ public class RelativeController {
     @Transient
     @DeleteMapping
     @ApiOperation("删除一个成员关系")
-    public Result<Void> deleteRelative(@ApiParam("成员关系ID") Long id) {
+    public Result<Void> deleteRelative(@RequestParam @ApiParam("成员关系ID") Long id) {
         relativeRepository.deleteById(id);
         return Result.success();
     }

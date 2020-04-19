@@ -31,9 +31,11 @@ public class PersonController {
     @GetMapping("/pageable")
     @ApiOperation("分页查询成员")
     public Iterable<Person> getAllPersons(
+            @RequestParam(defaultValue = "1")
             @ApiParam(value = "页数", defaultValue = "1") int page,
-            @ApiParam(value = "数量", defaultValue = "10") int size)
-    {
+            @RequestParam(defaultValue = "10")
+            @ApiParam(value = "数量", defaultValue = "10") int size
+    ){
         return personRepository.findAll(
                 PageRequest.of(page, size)
         );
@@ -41,22 +43,29 @@ public class PersonController {
 
     @GetMapping("/find")
     @ApiOperation("根据ID查询成员")
-    public Result<Person> getPersonById(@ApiParam("成员id") Long id) {
+    public Result<Person> getPersonById(@RequestParam @ApiParam("成员id") Long id) {
         final Optional<Person> byId = personRepository.findById(id);
         return Result.dataNotNull(byId);
     }
 
     @GetMapping("/graph")
-    @ApiOperation("根据名称查找树状图")
-    public Result<Collection<Person>> graphByName(@ApiParam("成员id") String name) {
+    @ApiOperation("根据成员姓名查找树状图")
+    public Result<Collection<Person>> graphByName(@RequestParam @ApiParam("成员姓名") String name) {
         final Collection<Person> people = personRepository.graphByName(name);
+        return Result.success(people);
+    }
+
+    @GetMapping("/graph")
+    @ApiOperation("查找所有树状图")
+    public Result<Collection<Person>> graph() {
+        final Collection<Person> people = personRepository.graph();
         return Result.success(people);
     }
 
     @Transient
     @PostMapping
     @ApiOperation("添加或者更新一个成员")
-    public Result<Person> updatePerson(@ApiParam("成员信息") @RequestBody  Person person) {
+    public Result<Person> updatePerson(@ApiParam("成员信息") @RequestBody Person person) {
         final Person save = personRepository.save(person);
         return Result.success(save);
     }
@@ -64,7 +73,7 @@ public class PersonController {
     @Transient
     @DeleteMapping
     @ApiOperation("删除一个成员")
-    public Result<Void> deletePerson(@ApiParam("成员id") Long id) {
+    public Result<Void> deletePerson(@RequestParam @ApiParam("成员id") Long id) {
         personRepository.deleteById(id);
         return Result.success();
     }

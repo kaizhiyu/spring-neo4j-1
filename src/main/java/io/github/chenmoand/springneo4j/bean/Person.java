@@ -4,14 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
-import org.neo4j.ogm.annotation.GeneratedValue;
-import org.neo4j.ogm.annotation.Id;
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotation.*;
 
-import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.Set;
 
 /**
@@ -22,7 +17,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Builder
-@ToString
+@ToString(exclude = {"relatives"})
 @ApiModel(value = "Person", description = "基本单位人")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,8 +28,11 @@ public class Person implements Serializable {
     @GeneratedValue
     @ApiModelProperty("成员ID")
     private Long id;
-    @ApiModelProperty("成员姓名")
+
+    @Index(unique = true)
+    @ApiModelProperty(value = "成员姓名", example = "小明")
     private String name;
+
     @ApiModelProperty("成员性别")
     private Sex sex;
 
@@ -43,7 +41,7 @@ public class Person implements Serializable {
 
     @ApiModelProperty("成员亲属关系列表")
     @Relationship(type = "Relative")
-    @JsonIgnoreProperties(value = {"startPerson", "endPerson"})
+//    @JsonIgnoreProperties(value = {"startPerson", "endPerson"})
     private Set<Relative> relatives;
 
 
