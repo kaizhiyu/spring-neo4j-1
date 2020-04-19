@@ -48,9 +48,9 @@ public class PersonController {
         return Result.dataNotNull(byId);
     }
 
-    @GetMapping("/graph")
+    @GetMapping("/graph/{name}")
     @ApiOperation("根据成员姓名查找树状图")
-    public Result<Collection<Person>> graphByName(@RequestParam @ApiParam("成员姓名") String name) {
+    public Result<Collection<Person>> graphByName(@PathVariable @ApiParam("成员姓名") String name) {
         final Collection<Person> people = personRepository.graphByName(name);
         return Result.success(people);
     }

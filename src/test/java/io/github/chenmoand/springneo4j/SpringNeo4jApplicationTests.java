@@ -80,7 +80,7 @@ class SpringNeo4jApplicationTests {
     @SneakyThrows
     void testMethod() {
 //        final Collection<Person> people = personRepository.graphById(1L);
-        final Collection graph = personRepository.graphByName("小明");
+        final Collection graph = personRepository.graph();
 //        final String toString = graph.toString();
         final String s = objectMapper.writeValueAsString(graph);
         log.info(s);
