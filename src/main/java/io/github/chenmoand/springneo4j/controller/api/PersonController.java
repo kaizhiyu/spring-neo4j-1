@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -62,7 +63,7 @@ public class PersonController {
         return Result.success(people);
     }
 
-    @Transient
+    @Transactional
     @PostMapping
     @ApiOperation("添加或者更新一个成员")
     public Result<Person> updatePerson(@ApiParam("成员信息") @RequestBody Person person) {
@@ -70,7 +71,7 @@ public class PersonController {
         return Result.success(save);
     }
 
-    @Transient
+    @Transactional
     @DeleteMapping
     @ApiOperation("删除一个成员")
     public Result<Void> deletePerson(@RequestParam @ApiParam("成员id") Long id) {

@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Transient;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @Api("成员关系管理")
@@ -18,7 +19,7 @@ public class RelativeController {
     @Autowired
     private RelativeRepository relativeRepository;
 
-    @Transient
+    @Transactional
     @PostMapping
     @ApiOperation("添加或者更新一个成员关系")
     public Result<Relative> updateRelative(@RequestBody Relative relative) {
@@ -26,7 +27,7 @@ public class RelativeController {
         return Result.success(save);
     }
 
-    @Transient
+    @Transactional
     @DeleteMapping
     @ApiOperation("删除一个成员关系")
     public Result<Void> deleteRelative(@RequestParam @ApiParam("成员关系ID") Long id) {
